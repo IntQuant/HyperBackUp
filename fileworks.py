@@ -7,7 +7,10 @@ def get_all_files(path):
 	def files_in_dir(x):
 		out = []
 		try:
-			out = list(itertools.filterfalse(lambda x:x.is_dir(), x.iterdir()))
+			out = list(itertools.filterfalse(
+				lambda x:x.is_dir(),
+				x.iterdir())
+				)
 		except PermissionError as e:
 			print("[Warn] Access denied to", x, file=sys.stderr)
 		if len(out)>0:
@@ -16,7 +19,10 @@ def get_all_files(path):
 		path = pathlib.Path(path)
 		dirs_to_seek = path.rglob("")
 		with cf.ThreadPoolExecutor(max_workers=4) as ex:
-			files = itertools.filterfalse(lambda x:x is None, ex.map(files_in_dir, dirs_to_seek))
+			files = itertools.filterfalse(
+				lambda x:x is None,
+				ex.map(files_in_dir, dirs_to_seek)
+				)
 		return list(itertools.chain(*files))
 	except Exception as e:
 		raise e

@@ -1,10 +1,11 @@
 import time
+import sys
 from random import randint
 
 class GlobalExchangeTable:
 	def __init__(self):
 		self.hashmap = {}
-	def add_interface(self, IFEI):
+	def add_interface(self, IFEI):   #FunctionExchangeInterface
 		if name not in self.hasmap:
 			self.hashmap[name] =  IFEI
 			return True
@@ -21,11 +22,11 @@ class FunctionTasker:
 			if identifier not in tasklist:
 				break
 			else:
-				print("[WARN] FunctionTasker found indentifier that is already in tasklist")
+				print("[WARN] FunctionTasker found indentifier that is already in tasklist. Too much requests", file=sys.stderr)
 
-		self.tasklist[identifier] = (self.function, args, kwargs)		
+		self.tasklist[identifier] = (self.function, args, kwargs)
 		return identifier
-		
+
 
 class FunctionProviderInterface:
 	def __init__(self, name, global_exchange_table):
@@ -33,7 +34,17 @@ class FunctionProviderInterface:
 		self.name = name
 
 class FunctionUserInterface:
-	pass
+	def __init__(self, UniversalExchangeData):
+		self.provideble = UniversalExchangeData[0]
+		self.tasklist   = UniversalExchangeData[1]
+		self.resultlist = UniversalExchangeData[2]
+	def task_function(self, function_name): #TODO: Make Working
+		return  self.providing[function_name]()
+	def get_function_result(self, callable_id, pause_time=0.1):
+		while True:
+			if callable_id in self.resultlist:
+				return self.resultlist[callable_id]
+			timee.sleep(pause_time)
 
 class FunctionExchangeInterface:
 	def __init__(self, name):
@@ -52,6 +63,10 @@ FPI = FunctionProviderInterface
 FUI = FunctionUserInterface
 FEI = FunctionExchangeInterface
 	
+
+
+
+
 if __name__ == "__main__":
 	print("Testing mode active")
 	print("Testing FunctionTasker")

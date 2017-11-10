@@ -1,6 +1,10 @@
 import tarfile
 import pathlib
+
+from FunctionProviderInterface import
+
 #"/home/iquant/backup.tar.gz"
+
 def make_archieve(archieve_path, files_to_pack, mode="w:gz", verbose=False)
 	if type(archieve_path)!="str":
 		raise TypeError("Archieve path needs to be a sting")
